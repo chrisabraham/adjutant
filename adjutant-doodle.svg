@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-labelledby="t d">
+  <title id="t">Adjutant</title>
+  <desc id="d">A doodle: a terminal wearing an officer's cap, a clipboard of numbered tasks, a ribbon of minutes, and a small key kept outside the box.</desc>
+  <style>
+    .ink { fill: none; stroke: #1f2933; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+    .thin { fill: none; stroke: #1f2933; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .paper { fill: #fffaf0; }
+    .screen { fill: #20313b; }
+    .glow { fill: #f2c14e; }
+    .word { font-family: "Comic Sans MS", "Chalkboard SE", "Patrick Hand", cursive; fill: #1f2933; }
+    .mono { font-family: "DejaVu Sans Mono", Menlo, Consolas, monospace; fill: #f7f3e8; }
+    @media (prefers-color-scheme: dark) {
+      .ink, .thin { stroke: #e9e4d8; }
+      .word { fill: #e9e4d8; }
+      .paper { fill: #2a2a2a; }
+    }
+  </style>
+
+  <!-- the terminal, slightly wobbly, as if drawn by hand -->
+  <path class="paper ink" d="M78 88 Q76 80 86 79 L352 76 Q362 76 362 86 L366 266 Q366 276 356 276 L90 280 Q80 280 80 270 Z"/>
+  <path class="screen" d="M98 104 L344 101 L347 254 L101 257 Z"/>
+  <text class="mono" x="114" y="132" font-size="17">adj good morning</text>
+  <text class="mono" x="114" y="160" font-size="15" opacity=".85">DUE TODAY</text>
+  <text class="mono" x="114" y="182" font-size="15" opacity=".85">#12 call Sam</text>
+  <text class="mono" x="114" y="204" font-size="15" opacity=".85">#14 send Dana the FAQ</text>
+  <text class="mono" x="114" y="234" font-size="17">adj 12 done<tspan class="glow" dx="4">▌</tspan></text>
+  <!-- stand -->
+  <path class="ink" d="M196 280 L190 304 M250 280 L256 304 M168 306 Q222 300 280 306"/>
+
+  <!-- an officer's cap on top of the terminal -->
+  <path class="paper ink" d="M150 79 Q160 46 214 44 Q268 44 280 78"/>
+  <path class="ink" d="M136 80 Q214 70 296 79"/>
+  <path class="glow" d="M206 54 l8 -8 l8 8 l-8 8 z"/>
+
+  <!-- clipboard of numbered tasks -->
+  <path class="paper ink" d="M410 104 L548 100 Q556 100 556 108 L560 300 Q560 308 552 308 L418 312 Q410 312 410 304 Z"/>
+  <path class="glow ink" d="M454 92 L514 90 L516 112 L456 114 Z"/>
+  <text class="word" x="428" y="146" font-size="19">#1</text>
+  <path class="thin" d="M462 141 L540 139" opacity=".5"/>
+  <path class="ink" d="M500 128 L510 140 L532 116" style="stroke:#4f8a5b"/>
+  <text class="word" x="428" y="184" font-size="19">#2</text>
+  <path class="thin" d="M462 179 L540 177"/>
+  <text class="word" x="428" y="222" font-size="19">#3</text>
+  <path class="thin" d="M462 217 L528 215"/>
+  <text class="word" x="428" y="260" font-size="19">m5</text>
+  <path class="thin" d="M466 255 L536 253" stroke-dasharray="5 6"/>
+
+  <!-- a cord from terminal to clipboard; below m5, a struck line that is still there -->
+  <path class="ink" d="M366 196 Q388 186 410 196"/>
+  <path class="thin" d="M466 284 L536 282" opacity=".5"/>
+  <path class="thin" d="M460 290 L542 276"/>
+
+  <!-- the key, kept outside the box -->
+  <g transform="translate(560 336) rotate(-18)">
+    <circle class="paper ink" cx="0" cy="0" r="13"/>
+    <path class="ink" d="M13 0 L50 0 M38 0 L38 10 M46 0 L46 8"/>
+  </g>
+  <text class="word" x="476" y="384" font-size="14">keys stay out of git</text>
+
+  <!-- name -->
+  <text class="word" x="84" y="356" font-size="46" font-weight="bold">Adjutant</text>
+  <path class="thin" d="M86 368 Q190 378 300 366"/>
+  <text class="word" x="88" y="390" font-size="15">a command-line chief of staff</text>
+</svg>

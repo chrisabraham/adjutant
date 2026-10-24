@@ -1,0 +1,37 @@
+# Replay file: how each phrasing must be routed. Add the lines you actually type.
+# route	phrase       (route is: fixed = handled without a model; chat = goes to the model)
+fixed	today
+fixed	what do I need to do
+fixed	overdue
+fixed	1 done
+fixed	done 1
+fixed	done1
+fixed	1done
+fixed	1 and 2 are done
+fixed	push 1 Monday
+fixed	push 1 to Monday
+fixed	push 1 2 Friday
+fixed	push 1 3 days
+fixed	move 1 to next Friday
+fixed	reopen 1
+fixed	history of 1
+fixed	add call Sam Friday p1
+fixed	remind me to email Dana tomorrow
+fixed	I decided to keep the price at $500
+fixed	I owe Dana the revised FAQ
+fixed	Sam owes me the contract
+fixed	waiting on Lee for the logo
+fixed	note: the venue holds 40
+fixed	idea: a podcast
+fixed	what happened today
+fixed	what am I waiting on
+fixed	what am I forgetting
+fixed	who is Dana
+fixed	models
+fixed	spend
+fixed	move push 1 Monday
+fixed	push 1 Monday; done 2
+chat	what should I focus on this afternoon?
+chat	write Sam a short note saying I'm running late
+chat	why do I keep pushing the offsite?
+chat	is the venue big enough

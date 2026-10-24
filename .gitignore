@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.venv/
+# Never commit settings, secrets or data. They live outside the repo by design.
+*.sqlite3
+*-token
+*-api-key
+.env

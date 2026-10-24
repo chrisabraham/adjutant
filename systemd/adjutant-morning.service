@@ -1,0 +1,7 @@
+# Writes the morning brief before you wake up; it is stored in the briefs table.
+[Unit]
+Description=Adjutant morning brief
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/adj good morning
