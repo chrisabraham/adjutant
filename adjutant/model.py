@@ -84,6 +84,17 @@ def available():
     return bool(store.secret("anthropic-api-key"))
 
 
+OUT_OF_CREDIT = ("the Anthropic account is out of credit. No retry will fix that: add credit in the "
+                 "Anthropic console (Plans & Billing), then try again")
+
+
+def out_of_credit(error):
+    """An empty account is not a rate limit: waiting a minute changes nothing. (Lessons: "Out of credit,
+    ninety-nine times.")"""
+    text = str(getattr(error, "message", "") or error).lower()
+    return "credit balance" in text or "insufficient_quota" in text or "out of credit" in text
+
+
 def call(connection, job, system, messages, schema=None):
     """One model call for one job. Returns the text. Raises Unavailable with a plain reason."""
     try:
@@ -112,12 +123,14 @@ def call(connection, job, system, messages, schema=None):
             response = client.messages.create(**params)
     except (anthropic.AuthenticationError, anthropic.PermissionDeniedError):
         raise Unavailable("Anthropic refused the key") from None
-    except anthropic.RateLimitError:
-        raise Unavailable("Anthropic rate limit; try again in a minute") from None
+    except anthropic.APIStatusError as error:
+        if out_of_credit(error):
+            raise Unavailable(OUT_OF_CREDIT) from None
+        if isinstance(error, anthropic.RateLimitError):
+            raise Unavailable("Anthropic rate limit; try again in a minute") from None
+        raise Unavailable(f"Anthropic error {error.status_code}") from None
     except anthropic.APIConnectionError:
         raise Unavailable("couldn't reach Anthropic") from None
-    except anthropic.APIStatusError as error:
-        raise Unavailable(f"Anthropic error {error.status_code}") from None
     if response.stop_reason == "refusal":
         raise Unavailable("the model declined this one")
     usage = response.usage

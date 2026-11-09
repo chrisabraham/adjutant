@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- An out-of-credit model account now says so plainly ("out of credit … add credit, then try again") instead of "Anthropic error 400", and is never presented as a rate limit; the deterministic packet still prints
+- Five new lessons from the private original: a refusal shaped like an answer, out of credit ninety-nine times, the schema said text but the model sent a number, put what to act on where the scroll stops, and the clock goes last
+- The test fakes can answer model calls with an error (`fake.model_error`); 41 tests
+
 ## 0.1.0 (2026-10-24)
 
 First release: a clean rewrite of the Blackbox engine, with no personal data.

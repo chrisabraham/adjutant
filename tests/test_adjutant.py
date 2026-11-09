@@ -188,6 +188,19 @@ class Models(CLITestCase):
         with self.db() as c:
             self.assertEqual(c.execute("SELECT kind, text FROM briefs").fetchone()[0], "morning")
 
+    def test_an_empty_account_says_so_once_and_is_not_retried(self):
+        self.with_model()
+        self.fake.task("Old thing", due="2026-09-01")
+        self.fake.model_error = (400, {"type": "error", "error": {
+            "type": "invalid_request_error",
+            "message": "Your credit balance is too low to access the Anthropic API."}})
+        out = self.adj("good morning")
+        self.assertIn("out of credit", out)
+        self.assertNotIn("rate limit", out)
+        self.assertEqual(out.count("out of credit"), 1)
+        self.assertEqual(len(self.fake.chat_requests), 1)        # a 400 is never retried
+        self.assertIn("#1", out)                                # the packet still prints: the brief is usable
+
     def test_brief_makes_one_call_with_the_packet_and_records_cost(self):
         self.with_model()
         self.fake.task("Old thing", due="2026-09-01")

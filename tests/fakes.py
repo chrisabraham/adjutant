@@ -46,6 +46,7 @@ class FakeServices:
         self.projects = [{"id": "p1", "name": "Inbox"}, {"id": "p2", "name": "Work"}]
         self.next_id = 100
         self.reply = "A plain answer."
+        self.model_error = None      # (status, payload): the fake model API answers every call with this error
         self.chat_requests = []
         self.writes = []
 
@@ -95,6 +96,8 @@ def make_handler(fake):
             body = self._body()
             if path.startswith("/v1/messages"):
                 fake.chat_requests.append(body)
+                if fake.model_error:
+                    return self._send(fake.model_error[1], fake.model_error[0])
                 return self._send({
                     "id": f"msg_{len(fake.chat_requests)}", "type": "message", "role": "assistant",
                     "model": body.get("model"), "content": [{"type": "text", "text": fake.reply}],
