@@ -19,7 +19,7 @@ $ adj what am I forgetting
 
 ## What it is
 
-Adjutant is the public, de-personalized spin-off of **Blackbox**, a private command-line secretary its author has used every day since September 2026. It's the same engine and the same patterns, with no names, clients, data, prompts or server details. It's MIT-licensed, about 1,500 lines of standard-library Python, and covered by 40 tests that run the real command against fake services.
+Adjutant is the public, de-personalized spin-off of **Blackbox**, a private command-line secretary its author has used every day since September 2026. It's the same engine and the same patterns, with no names, clients, data, prompts or server details. It's MIT-licensed, about 1,500 lines of standard-library Python, and covered by 42 tests that run the real command against fake services.
 
 What it does:
 

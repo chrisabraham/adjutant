@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Todoist's "too many requests" (429) is retried after the wait Todoist names (Retry-After or `error_extra.retry_after`, up to 60 seconds, 3 tries), with the same `X-Request-Id` so a landed write isn't applied twice; past that it says so plainly
+- A lesson on fresh donuts: why the newest item comes first, where the phrase comes from, and the rule (sort by freshness alone; the verdict is a label, never a place in line)
 - Eight new lessons from the private original: a list shows only what you can still act on, the platform's form decides the shape, guard the outbound text, ask the service how fast, don't fetch twice what one call can carry, a silent wait looks like a hang, too many authors make rules that contradict, back up before you fix data
 - The test fakes can throttle Todoist writes (`fake.throttle`) and record each write's request id; 42 tests
 - An out-of-credit model account now says so plainly ("out of credit … add credit, then try again") instead of "Anthropic error 400", and is never presented as a rate limit; the deterministic packet still prints
