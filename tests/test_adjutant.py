@@ -94,6 +94,16 @@ class Tasks(CLITestCase):
         self.assertIn("Showing the copy saved", self.adj("tasks"))
         self.assertIn("Not changing anything", self.adj("1", "done"))
 
+    def test_too_many_requests_waits_and_retries_the_same_write(self):
+        self.adj("tasks")
+        self.fake.throttle = 2
+        self.assertNotIn("too many requests", self.adj("1", "done").lower())
+        self.assertTrue(self.fake.tasks["101"]["done"])
+        self.assertEqual(len(self.fake.write_ids), 3)
+        self.assertEqual(len(set(self.fake.write_ids)), 1)     # one request id, so a landed write isn't repeated
+        self.fake.throttle = 10
+        self.assertIn("too many requests", self.adj("2", "done").lower())
+
     def test_compound_input_changes_nothing(self):
         self.adj("tasks")
         self.assertIn("several commands on one line", self.adj("push 1 Monday; done 2"))

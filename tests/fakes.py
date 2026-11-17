@@ -49,6 +49,8 @@ class FakeServices:
         self.model_error = None      # (status, payload): the fake model API answers every call with this error
         self.chat_requests = []
         self.writes = []
+        self.throttle = 0            # answer this many Todoist writes with 429 "too many requests" first
+        self.write_ids = []          # X-Request-Id of every Todoist write attempt, throttled or not
 
     def task(self, content, due=None, priority=1, project="p1"):
         self.next_id += 1
@@ -103,6 +105,10 @@ def make_handler(fake):
                     "model": body.get("model"), "content": [{"type": "text", "text": fake.reply}],
                     "stop_reason": "end_turn", "stop_sequence": None,
                     "usage": {"input_tokens": 1000, "output_tokens": 200}})
+            fake.write_ids.append(self.headers.get("X-Request-Id"))
+            if fake.throttle:
+                fake.throttle -= 1
+                return self._send({"error": "Too many requests", "error_extra": {"retry_after": 0}}, 429)
             fake.writes.append((path, body))
             if path == "/tasks/quick":
                 tid = fake.task(body["text"])

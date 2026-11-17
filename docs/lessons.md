@@ -2,6 +2,30 @@
 
 What went wrong in daily use of the private original, and the rule each mistake produced. Newest first.
 
+**A list shows only what you can still act on.**
+A daily batch listed every fresh posting, and kept listing the ones the user had already answered. Each looked actionable, and each produced "you already did this one" when he tried it. The rule against hiding things was right; it was applied one step too far. *Rule: hide nothing the user might act on; leave out what's finished, and say in one line how many you left out.*
+
+**The platform's form decides the shape.**
+The model priced hourly jobs as flat fees, which read sensibly in a letter that the job's form couldn't accept: an hourly posting takes an hourly rate and nothing else. A prompt rule made it rarer, not rare. A bare number was worse, because "95" meant $95 an hour and the first fix read it as a flat fee. *Rule: check model output against what its destination accepts, in code. Ask once more at full strength, then flag; never silently convert. Read ambiguous values in the destination's terms, and when even that is ambiguous, ask.*
+
+**Guard the outbound text, not just the prompt.**
+A marketplace warned the user for sharing contact details before a contract. His drafts turned out to be clean, apart from one website link two weeks earlier, but a prompt instruction was the only thing that had kept them that way. *Rule: when a platform forbids something in what you send, strip it from the draft in code (addresses, phone numbers, outside links), list what was removed for a human to reread, and replay the guard over everything you've sent before to find what slipped through.*
+
+**Ask the service how fast.**
+A sweep of thirty-odd searches lost most of them every run. The reason was in the replies all along ("wait about 5 seconds; about 12 requests a minute"), but the code only saved "failed". Once it saved each failure's reason, the fix was obvious: a shared token bucket just under the stated rate, and a refusal pauses the whole bucket for the wait the service asks for. Every search succeeded, at the cost of a slower run, which the next lesson paid back. *Rule: save why each call failed, not just that it did. Pace to the rate the service states. A retry waits exactly as long as asked, and a retried write carries the same request id.* `todoist._request` does this for Todoist's 429.
+
+**Don't fetch twice what one call can carry.**
+A batch opened every item one call at a time after a search had already listed them, and the opening calls shared the same rate limit as the search. The search could return the full record all along; it had to be asked. A sweep under fifteen minutes old was also redone from scratch whenever a second command wanted it. *Rule: ask the list call for the full record and store it. Reuse a recent clean result, and say how old it is. Make "fetch again now" one short command.*
+
+**A silent wait looks like a hang.**
+A four-minute sweep printed nothing until it finished, and the user killed it twice. One of those runs was mid-retry after a network hiccup, which looked exactly like a freeze. *Rule: before any long wait, say what's happening, how long it usually takes, and that interrupting is safe; then count progress on one line. Write it to stderr, and only to a terminal, so pipes, logs and tests never see it.*
+
+**Too many authors make rules that contradict.**
+Several assistants and the user wrote rules into one shared playbook over a month. Older sections still said "pass" on things a newer ruling said to pursue, and the model read both in every prompt. One standing instruction even used a signal the user later called a red herring. *Rule: one voice for each rule. When a ruling changes, rewrite the old section to match and keep the old text in a dated backup, not beside the new text in the prompt.*
+
+**Back up before you fix data.**
+A script that corrected nineteen saved records had its own bug and knocked seven of them down to the wrong value. Since the database had been copied a minute before, they were restored exactly and corrected properly. *Rule: copy the data before any bulk correction, and read the corrected records before calling it done.*
+
 **A refusal shaped like an answer is still a refusal.**
 A batch job fetched a hundred postings from an outside service, then asked a model to judge each one. The service started saying "you're opening these too quickly, slow down", but it said so in a normal-looking reply, not as an error. The code read each refusal as an empty posting, paid the model to judge seventy blanks, and saved seventy confident-sounding verdicts about nothing. Since they were saved, nothing would ever look at those postings again. *Rule: recognise error-shaped replies where they enter the program, and raise. Never send an empty input to a model. Something you couldn't fetch is "not fetched", saved as nothing, so the next run tries again. Fetch at a polite pace, and stop when told to slow down.*
 
