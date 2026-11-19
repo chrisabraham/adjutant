@@ -37,6 +37,25 @@ What it isn't: a product with support, a chatbot, or an agent that acts on its o
 - **People who want to borrow the patterns.** If you're building your own assistant, take the patterns one at a time. Each one is a short module with tests.
 - **Agents.** `AGENTS.md` tells an AI coding agent how to work on this repo safely.
 
+## Where it works: Upwork
+
+These patterns were not invented at a whiteboard. They run a working freelance practice whose briefs arrive mostly through Upwork, and Upwork is where an open loop costs money fastest. Three leaks sink freelancers there:
+
+- **The RFP you never saw.** Invitations and room replies land at all hours; check when you remember and the good ones are already gone.
+- **The pitch that breaks the rules.** Upwork forbids contact details before a contract exists. One email address in a moment of helpfulness can get an account restricted.
+- **The prospect who went cold.** A thread you meant to answer sits for five days, and by the time you resurface, the client has hired someone else.
+
+The pattern that plugs them is the one in this repo, pointed at the pipeline:
+
+- **Watch.** New invitations and room activity surface in the morning brief, next to the day's tasks—not in a tab you have to remember to open.
+- **Draft inside the guardrails.** Every pitch is prepared against the platform's rules, so the ban on pre-contract contact details is a property of the workflow, not of your memory at 11 p.m.
+- **Chase on a cadence.** A silent prospect gets one touch a day—short, varied, each one shrinking the ask—until they answer or the thread is formally closed. Silence is a state the system tracks, not a feeling.
+- **The human sends.** Nothing goes out under your name without your yes. The desk prepares; you decide—the same rule the core runs on: outside actions only on a human yes.
+
+A market of auto-apply tools has already grown up around Upwork's API—agents that spray proposals at scale and compete on volume. This pattern is the other end of that market. Its edge is not volume; it is follow-through, and the judgment of the human whose name is on the account.
+
+The chief-of-staff core in this repo—tasks with permanent numbers, promises kept as minutes, the forgetting audit—is the discipline underneath. [docs/upwork.md](docs/upwork.md) writes the pipeline pattern up in full, so you can run it with whatever tooling you already have.
+
 ## Why
 
 Most assistants are a chat window with a memory problem. Adjutant goes the other way: deterministic first, the model last.
